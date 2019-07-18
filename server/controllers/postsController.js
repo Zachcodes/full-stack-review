@@ -23,5 +23,11 @@ module.exports = {
       req.session.user.id
     ]);
     res.send(posts);
+  },
+  async savePost(req, res) {
+    let { title, content } = req.body;
+    const db = req.app.get('db');
+    let posts = await db.save_post([title, content, req.session.user.id]);
+    res.send(posts);
   }
 };

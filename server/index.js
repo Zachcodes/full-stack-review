@@ -32,6 +32,7 @@ app.delete('/api/logout', uc.logout);
 // post endpoints
 app.get('/api/posts/:userId', pc.getPosts);
 app.delete('/api/posts/:postId', pc.deletePost);
-app.put('/api/post/edit/:postId', pc.editPost);
+app.put('/api/posts/edit/:postId', pc.editPost);
+app.post('/api/posts', pc.savePost);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));
