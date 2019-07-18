@@ -28,5 +28,7 @@ app.post('/api/signup', ac.signup);
 app.get('/api/user', authCheck, ac.getUser);
 app.delete('/api/logout', ac.logout);
 app.get('/api/posts/:userId', pc.getPosts);
+app.delete('/api/posts/:postId', pc.deletePost);
+app.put('/api/post/edit/:postId', pc.editPost);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));

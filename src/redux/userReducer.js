@@ -1,20 +1,5 @@
 import axios from 'axios';
-import {
-  LOGIN,
-  LOGIN_PENDING,
-  LOGIN_FULFILLED,
-  LOGIN_REJECTED,
-  LOGOUT,
-  LOGOUT_FULFILLED,
-  SIGNUP,
-  SIGNUP_PENDING,
-  SIGNUP_FULFILLED,
-  SIGNUP_REJECTED,
-  GET_USER,
-  GET_USER_PENDING,
-  GET_USER_FULFILLED,
-  GET_USER_REJECTED
-} from './actionTypes';
+import { LOGIN, LOGOUT, SIGNUP, GET_USER } from './actionTypes';
 
 const initialState = {
   user: {},
@@ -61,30 +46,30 @@ export default function(state = initialState, action) {
   console.log('action in userReducer ', action);
   let { type, payload } = action;
   switch (type) {
-    case LOGIN_PENDING:
+    case LOGIN + '_PENDING':
       return { ...state, loading: true, error: false };
-    case LOGIN_FULFILLED:
+    case LOGIN + '_FULFILLED':
       return {
         ...state,
         user: payload,
         loading: false,
         error: false
       };
-    case LOGIN_REJECTED:
+    case LOGIN + '_REJECTED':
       return { ...state, loading: false, error: payload };
-    case LOGOUT_FULFILLED:
+    case LOGOUT + '_FULFILLED':
       return { ...state, user: {}, error: false };
-    case SIGNUP_PENDING:
+    case SIGNUP + '_PENDING':
       return { ...state, loading: true, error: false };
-    case SIGNUP_FULFILLED:
+    case SIGNUP + '_FULFILLED':
       return { ...state, loading: false, user: payload, error: false };
-    case SIGNUP_REJECTED:
+    case SIGNUP + '_REJECTED':
       return { ...state, loading: false, error: payload };
-    case GET_USER_PENDING:
+    case GET_USER + '_PENDING':
       return { ...state, loading: true, error: false };
-    case GET_USER_FULFILLED:
+    case GET_USER + '_FULFILLED':
       return { ...state, loading: false, user: payload, error: false };
-    case GET_USER_REJECTED:
+    case GET_USER + '_REJECTED':
       return { ...state, loading: false, error: payload };
     default:
       return state;
