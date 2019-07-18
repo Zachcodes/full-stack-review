@@ -5,8 +5,11 @@ import {
   LOGIN_FULFILLED,
   LOGIN_REJECTED,
   LOGOUT,
-  LOGOUT_PENDING,
-  LOGOUT_FULFILLED
+  LOGOUT_FULFILLED,
+  SIGNUP,
+  SIGNUP_PENDING,
+  SIGNUP_FULFILLED,
+  SIGNUP_REJECTED
 } from './actionTypes';
 
 const initialState = {
@@ -32,6 +35,16 @@ export const logout = () => {
   };
 };
 
+export const signup = (username, password) => {
+  let data = axios
+    .post('/api/signup', { username, password })
+    .then(res => res.data);
+  return {
+    type: SIGNUP,
+    payload: data
+  };
+};
+
 export default function(state = initialState, action) {
   console.log('action in userReducer ', action);
   let { type, payload } = action;
@@ -47,6 +60,12 @@ export default function(state = initialState, action) {
       return { ...state, loading: false, error: payload };
     case LOGOUT_FULFILLED:
       return { ...state, user: {} };
+    case SIGNUP_PENDING:
+      return { ...state, loading: true };
+    case SIGNUP_FULFILLED:
+      return { ...state, loading: false, user: payload };
+    case SIGNUP_REJECTED:
+      return { ...state, loading: false, error: payload };
     default:
       return state;
   }

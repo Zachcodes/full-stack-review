@@ -13,11 +13,11 @@ module.exports = {
       res.send(req.session.user);
     } else res.status(401).send('Username or password incorrect');
   },
-  async register(req, res) {
+  async signup(req, res) {
     let { username, password } = req.body;
     const db = req.app.get('db');
     let [existingUser] = await db.get_user_by_username(username);
-    if (existingUser) return res.status(200).send('Username exists already');
+    if (existingUser) return res.status(400).send('Username exists already');
     let salt = await bcrypt.genSalt(saltRounds);
     let hash = await bcrypt.hash(password, salt);
     let [user] = await db.create_user([username, hash]);

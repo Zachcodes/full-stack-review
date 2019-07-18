@@ -24,7 +24,7 @@ massive(CONNECTION_STRING).then(db => app.set('db', db));
 app.use(initSession);
 
 app.post('/api/login', ac.login);
-app.post('/api/register', ac.register);
+app.post('/api/signup', ac.signup);
 app.get('/api/dashboard', authCheck, dc.getDashboard);
 app.delete('/api/logout', ac.logout);
 

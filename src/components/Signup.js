@@ -1,5 +1,62 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { signup } from '../redux/userReducer';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-export default function Signup(props) {
-  return <div>Signup</div>;
+class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+
+  handleChange = e => {
+    let { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  signupUser = () => {
+    this.props.signup(this.state.username, this.state.password);
+  };
+
+  render() {
+    let { username, password } = this.state;
+    let { user } = this.props;
+    if (user.loggedIn) return <Redirect to="/" />;
+    return (
+      <div>
+        <div>
+          Username:{' '}
+          <input
+            type="text"
+            value={username}
+            name="username"
+            onChange={this.handleChange}
+          />
+        </div>
+        <div>
+          Password:{' '}
+          <input
+            type="password"
+            value={password}
+            name="password"
+            onChange={this.handleChange}
+          />
+        </div>
+        <button onClick={this.signupUser}>Login</button>
+        <div />
+      </div>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return state.user;
+}
+
+export default connect(
+  mapStateToProps,
+  { signup }
+)(Signup);
