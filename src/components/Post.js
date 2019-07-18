@@ -53,15 +53,22 @@ class Post extends Component {
               value={newTitle}
               onChange={this.handleChange}
               name="newTitle"
+              className="input full-width"
             />
-            <input
+            <textarea
               value={newContent}
+              type="text"
               onChange={this.handleChange}
               name="newContent"
+              className="input full-width"
             />
             <div>
-              <button onClick={this.save}>Save</button>
-              <button onClick={this.flipEdit}>Cancel</button>
+              <button onClick={this.save} className="btn normal-btn">
+                Save
+              </button>
+              <button onClick={this.flipEdit} className="btn warning-btn">
+                Cancel
+              </button>
             </div>
           </div>
         ) : (
@@ -69,8 +76,12 @@ class Post extends Component {
             <h4>{title}</h4>
             <p>{content}</p>
             <div>
-              <button onClick={this.flipEdit}>Edit</button>
-              <button onClick={this.delete}>Delete</button>
+              <button onClick={this.flipEdit} className="btn normal-btn">
+                Edit
+              </button>
+              <button onClick={this.delete} className="btn warning-btn">
+                Delete
+              </button>
             </div>
           </div>
         )}

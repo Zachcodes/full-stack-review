@@ -3,7 +3,7 @@ import { LOGIN, LOGOUT, SIGNUP, GET_USER } from './actionTypes';
 
 const initialState = {
   user: {},
-  loading: false,
+  redirect: false,
   error: false
 };
 
@@ -47,30 +47,36 @@ export default function(state = initialState, action) {
   let { type, payload } = action;
   switch (type) {
     case LOGIN + '_PENDING':
-      return { ...state, loading: true, error: false };
+      return { ...state, error: false };
     case LOGIN + '_FULFILLED':
       return {
         ...state,
         user: payload,
-        loading: false,
+        redirect: false,
         error: false
       };
     case LOGIN + '_REJECTED':
       return { ...state, loading: false, error: payload };
     case LOGOUT + '_FULFILLED':
-      return { ...state, user: {}, error: false };
+      return { ...state, user: {}, redirect: true, error: false };
     case SIGNUP + '_PENDING':
       return { ...state, loading: true, error: false };
     case SIGNUP + '_FULFILLED':
-      return { ...state, loading: false, user: payload, error: false };
+      return {
+        ...state,
+        loading: false,
+        redirect: false,
+        user: payload,
+        error: false
+      };
     case SIGNUP + '_REJECTED':
       return { ...state, loading: false, error: payload };
     case GET_USER + '_PENDING':
-      return { ...state, loading: true, error: false };
+      return { ...state, loading: true, redirect: false, error: false };
     case GET_USER + '_FULFILLED':
       return { ...state, loading: false, user: payload, error: false };
     case GET_USER + '_REJECTED':
-      return { ...state, loading: false, error: payload };
+      return { ...state, loading: false, redirect: true, error: payload };
     default:
       return state;
   }

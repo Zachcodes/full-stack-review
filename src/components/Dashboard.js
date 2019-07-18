@@ -12,11 +12,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    let { user, error, loading } = this.props;
-    if (error) return <Redirect to="/login" />;
-    if (loading || !user.loggedIn) return <div>Loading</div>;
+    let { user, error, redirect } = this.props;
+    if (error || redirect) return <Redirect to="/login" />;
+    if (!user.loggedIn) return <div>Loading</div>;
     return (
-      <div className="dashboard">
+      <div className="display-container">
         <h3>Posts</h3>
         <Posts />
       </div>

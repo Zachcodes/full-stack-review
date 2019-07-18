@@ -26,26 +26,32 @@ class Login extends Component {
     let { user } = this.props;
     if (user.loggedIn) return <Redirect to="/" />;
     return (
-      <div>
-        <div>
-          Username:{' '}
-          <input
-            type="text"
-            value={username}
-            name="username"
-            onChange={this.handleChange}
-          />
+      <div className="display-container">
+        <div className="box-medium">
+          <div className="input-row">
+            Username:{' '}
+            <input
+              type="text"
+              value={username}
+              name="username"
+              onChange={this.handleChange}
+              className="input"
+            />
+          </div>
+          <div className="input-row">
+            Password:{' '}
+            <input
+              type="password"
+              value={password}
+              name="password"
+              onChange={this.handleChange}
+              className="input"
+            />
+          </div>
+          <button onClick={this.loginUser} className="btn normal-btn">
+            Login
+          </button>
         </div>
-        <div>
-          Password:{' '}
-          <input
-            type="password"
-            value={password}
-            name="password"
-            onChange={this.handleChange}
-          />
-        </div>
-        <button onClick={this.loginUser}>Login</button>
         <div />
       </div>
     );
