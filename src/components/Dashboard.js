@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { getUser } from '../redux/userReducer';
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loading: true,
-      user: {},
-      redirect: false
-    };
-  }
-  async componentDidMount() {
-    try {
-      let { data } = await axios.get('/api/dashboard');
-      this.setState({ user: data, loading: false });
-    } catch (err) {
-      this.setState({ loading: false, redirect: true });
+  componentDidMount() {
+    if (!this.props.user.loggedIn) {
+      console.log('running');
+      this.props.getUser();
     }
   }
 
   render() {
-    let { loading, user, redirect } = this.state;
+    let { loading, user, error } = this.props;
     if (loading) return <div>Loading</div>;
-    if (redirect) return <Redirect to="/login" />;
+    if (error || !user.loggedIn) return <Redirect to="/login" />;
     return <div>Dashboard</div>;
   }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return state.user;
+}
+
+export default connect(
+  mapStateToProps,
+  { getUser }
+)(Dashboard);

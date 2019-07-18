@@ -25,7 +25,7 @@ app.use(initSession);
 
 app.post('/api/login', ac.login);
 app.post('/api/signup', ac.signup);
-app.get('/api/dashboard', authCheck, dc.getDashboard);
+app.get('/api/user', authCheck, ac.getUser);
 app.delete('/api/logout', ac.logout);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));

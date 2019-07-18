@@ -9,7 +9,11 @@ import {
   SIGNUP,
   SIGNUP_PENDING,
   SIGNUP_FULFILLED,
-  SIGNUP_REJECTED
+  SIGNUP_REJECTED,
+  GET_USER,
+  GET_USER_PENDING,
+  GET_USER_FULFILLED,
+  GET_USER_REJECTED
 } from './actionTypes';
 
 const initialState = {
@@ -45,26 +49,42 @@ export const signup = (username, password) => {
   };
 };
 
+export const getUser = () => {
+  let data = axios.get('/api/user').then(res => res.data);
+  return {
+    type: GET_USER,
+    payload: data
+  };
+};
+
 export default function(state = initialState, action) {
   console.log('action in userReducer ', action);
   let { type, payload } = action;
   switch (type) {
     case LOGIN_PENDING:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case LOGIN_FULFILLED:
       return {
-        user: payload.data,
-        loading: false
+        ...state,
+        user: payload,
+        loading: false,
+        error: false
       };
     case LOGIN_REJECTED:
       return { ...state, loading: false, error: payload };
     case LOGOUT_FULFILLED:
-      return { ...state, user: {} };
+      return { ...state, user: {}, error: false };
     case SIGNUP_PENDING:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case SIGNUP_FULFILLED:
-      return { ...state, loading: false, user: payload };
+      return { ...state, loading: false, user: payload, error: false };
     case SIGNUP_REJECTED:
+      return { ...state, loading: false, error: payload };
+    case GET_USER_PENDING:
+      return { ...state, loading: true, error: false };
+    case GET_USER_FULFILLED:
+      return { ...state, loading: false, user: payload, error: false };
+    case GET_USER_REJECTED:
       return { ...state, loading: false, error: payload };
     default:
       return state;
