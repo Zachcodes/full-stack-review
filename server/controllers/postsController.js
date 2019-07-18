@@ -8,7 +8,6 @@ module.exports = {
   async deletePost(req, res) {
     let { postId } = req.params;
     const db = req.app.get('db');
-    console.log(req.session.user.id);
     let posts = await db.delete_post([+postId, req.session.user.id]);
     console.log(posts);
     res.send(posts);

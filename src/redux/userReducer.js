@@ -43,7 +43,6 @@ export const getUser = () => {
 };
 
 export default function(state = initialState, action) {
-  console.log('action in userReducer ', action);
   let { type, payload } = action;
   switch (type) {
     case LOGIN + '_PENDING':

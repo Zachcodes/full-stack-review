@@ -2,7 +2,7 @@ require('dotenv').config({ path: __dirname + '/../.env' });
 const express = require('express');
 const massive = require('massive');
 const session = require('express-session');
-const ac = require('./controllers/authController');
+const uc = require('./controllers/userController');
 const pc = require('./controllers/postsController');
 const initSession = require('./middleware/initSession');
 const authCheck = require('./middleware/authCheck');
@@ -23,10 +23,13 @@ massive(CONNECTION_STRING).then(db => app.set('db', db));
 
 app.use(initSession);
 
-app.post('/api/login', ac.login);
-app.post('/api/signup', ac.signup);
-app.get('/api/user', authCheck, ac.getUser);
-app.delete('/api/logout', ac.logout);
+// user endpoints
+app.post('/api/login', uc.login);
+app.post('/api/signup', uc.signup);
+app.get('/api/user', authCheck, uc.getUser);
+app.delete('/api/logout', uc.logout);
+
+// post endpoints
 app.get('/api/posts/:userId', pc.getPosts);
 app.delete('/api/posts/:postId', pc.deletePost);
 app.put('/api/post/edit/:postId', pc.editPost);

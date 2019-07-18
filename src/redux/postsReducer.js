@@ -33,7 +33,6 @@ export function editPost(postId, newTitle, newContent) {
 }
 
 export default function postsReducer(state = initialState, action) {
-  console.log('action in postsReducer ', action);
   let { type, payload } = action;
   switch (type) {
     case GET_POSTS + '_FULFILLED':
