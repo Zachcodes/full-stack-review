@@ -5,30 +5,18 @@ import { getUser } from '../redux/userReducer';
 import Posts from './Posts';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: props.user.loggedIn ? false : true
-    };
-  }
   componentDidMount() {
     if (!this.props.user.loggedIn) {
       this.props.getUser();
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
-      this.setState({ loading: false });
-    }
-  }
   render() {
-    let { user, error } = this.props;
-    let { loading } = this.state;
-    if (loading) return <div>Loading</div>;
+    let { user, error, loading } = this.props;
     if (error) return <Redirect to="/login" />;
+    if (loading || !user.loggedIn) return <div>Loading</div>;
     return (
-      <div>
+      <div className="dashboard">
         <h3>Posts</h3>
         <Posts />
       </div>

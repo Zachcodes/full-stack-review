@@ -1,8 +1,13 @@
 import React from 'react';
 
 function Post(props) {
-  console.log('props in post');
-  return <div>Post</div>;
+  let { title, content } = props;
+  return (
+    <div className="post-container">
+      <h4>{title}</h4>
+      <p>{content}</p>
+    </div>
+  );
 }
 
 export default Post;
