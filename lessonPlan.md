@@ -3,9 +3,10 @@
 1. Start out by running npx create-react-app full-stack-review.
 
 - Then, create `server` folder, `index.js` file, and `controllers` and `middleware` folder
-- add main, proxy and nodemonConfig to package.json
-  - put `PORT=3000` in start script
-- run `npm i express express-session dotenv massive`
+
+- run `npm i express express-session dotenv massive concurrently`
+  - explain each
+- add main, proxy, nodemonConfig and dev to package.json
 - add `.env` file and add in the env variables
 - add `.env` to `.gitignore`
 - set up basic index.js file with `app`, `session`, `express.json()` and `dotenv` config
