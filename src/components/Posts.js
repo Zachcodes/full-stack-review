@@ -13,26 +13,24 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    let { getPosts, posts, userId } = this.props;
-    if (!posts.length) {
-      getPosts(userId);
-    }
+    let { getPosts, userId } = this.props;
+    getPosts(userId);
   }
 
   handleChange = e => {
-    let { name, value } = e.target;
+    const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   addPost = () => {
-    let { title, content } = this.state;
+    const { title, content } = this.state;
     this.setState({ title: '', content: '' });
     this.props.savePost(title, content);
   };
 
   render() {
-    let { title, content } = this.state;
-    let { posts } = this.props;
+    const { title, content } = this.state;
+    const { posts } = this.props;
     return (
       <div>
         {posts.map(post => (
@@ -65,7 +63,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { getPosts, savePost }
-)(Posts);
+export default connect(mapStateToProps, { getPosts, savePost })(Posts);

@@ -8,12 +8,11 @@ const initialState = {
 };
 
 export const login = (username, password) => {
-  let data = axios
-    .post('/api/login', { username, password })
-    .then(res => res.data);
   return {
     type: LOGIN,
-    payload: data
+    payload: axios
+      .post('/api/login', { username, password })
+      .then(res => res.data)
   };
 };
 
@@ -25,51 +24,47 @@ export const logout = () => {
 };
 
 export const signup = (username, password) => {
-  let data = axios
-    .post('/api/signup', { username, password })
-    .then(res => res.data);
   return {
     type: SIGNUP,
-    payload: data
+    payload: axios
+      .post('/api/signup', { username, password })
+      .then(res => res.data)
   };
 };
 
 export const getUser = () => {
-  let data = axios.get('/api/user').then(res => res.data);
   return {
     type: GET_USER,
-    payload: data
+    payload: axios.get('/api/user').then(res => res.data)
   };
 };
 
 export default function(state = initialState, action) {
   let { type, payload } = action;
   switch (type) {
-    case LOGIN + '_FULFILLED':
+    case `${LOGIN}_FULFILLED`:
       return {
-        ...state,
         user: payload,
         redirect: false,
         error: false
       };
-    case LOGIN + '_REJECTED':
+    case `${LOGIN}_REJECTED`:
       return { ...state, error: payload };
-    case LOGOUT + '_FULFILLED':
-      return { ...state, user: {}, redirect: true, error: false };
-    case SIGNUP + '_FULFILLED':
+    case `${LOGOUT}_FULFILLED`:
+      return { user: {}, redirect: true, error: false };
+    case `${SIGNUP}_FULFILLED`:
       return {
-        ...state,
         redirect: false,
         user: payload,
         error: false
       };
-    case SIGNUP + '_REJECTED':
+    case `${SIGNUP}_REJECTED`:
       return { ...state, error: payload };
-    case GET_USER + '_PENDING':
+    case `${GET_USER}_PENDING`:
       return { ...state, redirect: false, error: false };
-    case GET_USER + '_FULFILLED':
+    case `${GET_USER}_FULFILLED`:
       return { ...state, user: payload, error: false };
-    case GET_USER + '_REJECTED':
+    case `${GET_USER}_REJECTED`:
       return { ...state, redirect: true, error: payload };
     default:
       return state;

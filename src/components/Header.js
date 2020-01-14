@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { logout } from '../redux/userReducer';
 import { Link } from 'react-router-dom';
 
-function Header(props) {
+const Header = props => {
   console.log(props);
   return (
     <div className="header">
@@ -23,13 +23,8 @@ function Header(props) {
       )}
     </div>
   );
-}
+};
 
-function mapStateToProps(state) {
-  return state.user;
-}
+const mapStateToProps = state => state.user;
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(Header);
+export default connect(mapStateToProps, { logout })(Header);

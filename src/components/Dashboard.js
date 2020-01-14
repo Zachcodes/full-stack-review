@@ -12,9 +12,9 @@ class Dashboard extends Component {
   }
 
   render() {
-    let { user, error, redirect } = this.props;
+    const { user, error, redirect } = this.props;
     if (error || redirect) return <Redirect to="/login" />;
-    if (!user.loggedIn) return <div>Loading</div>;
+    if (!Object.keys(user).length) return <div>Loading</div>;
     return (
       <div className="display-container">
         <h3>Posts</h3>
@@ -24,11 +24,6 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state.user;
-}
+const mapStateToProps = state => state.user;
 
-export default connect(
-  mapStateToProps,
-  { getUser }
-)(Dashboard);
+export default connect(mapStateToProps, { getUser })(Dashboard);

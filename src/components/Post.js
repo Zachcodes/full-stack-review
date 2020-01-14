@@ -20,13 +20,13 @@ class Post extends Component {
   flipEdit = () => this.setState({ editing: !this.state.editing });
 
   save = () => {
-    let { id, editPost } = this.props;
-    let { newTitle, newContent } = this.state;
+    const { id, editPost } = this.props;
+    const { newTitle, newContent } = this.state;
     editPost(id, newTitle, newContent);
   };
 
   delete = () => {
-    let { id, deletePost } = this.props;
+    const { id, deletePost } = this.props;
     deletePost(id);
   };
 
@@ -42,8 +42,8 @@ class Post extends Component {
   }
 
   render() {
-    let { title, content } = this.props;
-    let { newTitle, newContent, editing } = this.state;
+    const { title, content } = this.props;
+    const { newTitle, newContent, editing } = this.state;
 
     return (
       <div className="post-container">
@@ -90,7 +90,4 @@ class Post extends Component {
   }
 }
 
-export default connect(
-  null,
-  { deletePost, editPost }
-)(Post);
+export default connect(null, { deletePost, editPost })(Post);

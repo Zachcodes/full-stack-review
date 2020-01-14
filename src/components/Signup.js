@@ -17,12 +17,13 @@ class Signup extends Component {
     this.setState({ [name]: value });
   };
 
-  signupUser = () => {
+  signupUser = e => {
+    e.preventDefault();
     this.props.signup(this.state.username, this.state.password);
   };
 
   render() {
-    let { username, password } = this.state;
+    const { username, password } = this.state;
     let { user } = this.props;
     if (user.loggedIn) return <Redirect to="/" />;
     return (
@@ -59,11 +60,6 @@ class Signup extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state.user;
-}
+const mapStateToProps = state => state.user;
 
-export default connect(
-  mapStateToProps,
-  { signup }
-)(Signup);
+export default connect(mapStateToProps, { signup })(Signup);

@@ -17,13 +17,14 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  loginUser = () => {
+  loginUser = e => {
+    e.preventDefault();
     this.props.login(this.state.username, this.state.password);
   };
 
   render() {
-    let { username, password } = this.state;
-    let { user } = this.props;
+    const { username, password } = this.state;
+    const { user } = this.props;
     if (user.loggedIn) return <Redirect to="/" />;
     return (
       <div className="display-container">
@@ -58,11 +59,6 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state.user;
-}
+const mapStateToProps = state => state.user;
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(Login);
+export default connect(mapStateToProps, { login })(Login);
